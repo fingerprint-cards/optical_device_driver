@@ -1,0 +1,5 @@
+fpc16xx {
+	status = "ok";
+	compatible = "fpc,fpc16xx";
+	fpc,gpio_rst = <&gpio26 3 0>; /* PIN#26 = GPIO_211 (SOC) = GPIO299 (Linux) */
+};

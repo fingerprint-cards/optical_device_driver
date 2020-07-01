@@ -1,0 +1,59 @@
+// SPDX-License-Identifier: GPL-2.0
+&soc {
+	fpc {
+		status = "ok";
+		compatible = "fpc,fpc16xx";
+		fpc,gpio_rst    = <&tlmm 21 0x0>;
+		vcc_pwr-supply  = <&pm8994_s4>;
+
+		pinctrl-names = "fpc1020_reset_reset",
+			"fpc1020_reset_active";
+
+		pinctrl-0 = <&msm_gpio_21>;
+		pinctrl-1 = <&msm_gpio_21_output_high>;
+	};
+};
+
+&pm8994_s4 {
+	qcom,regulator-type = <0>;	/* LDO */
+	qcom,init-enable = <0>;
+	qcom,init-ldo-mode = <1>;
+	qcom,init-pin-ctrl-enable = <0>;
+	qcom,init-pin-ctrl-mode = <0>;
+	regulator-min-microvolt = <2800000>;
+	regulator-max-microvolt = <3000000>;
+	qcom,init-voltage = <3000000>;
+	status = "okay";
+};
+
+&tlmm {
+	/* GPIO_21 : FP_RESET_N */
+	msm_gpio_21: msm_gpio_21 {
+		mux {
+			 pins = "gpio21";
+			 function = "gpio";
+		};
+
+		config {
+			pins = "gpio21";
+			drive-strength = <2>;
+			bias-disable;
+			output-low;
+		};
+	};
+
+	/* GPIO_21 : FP_RESET_N, state device active*/
+	msm_gpio_21_output_high: msm_gpio_21_output_high {
+		mux {
+			pins = "gpio21";
+			function = "gpio";
+		};
+
+		config {
+			pins = "gpio21";
+			drive-strength = <2>;
+			bias-disable;
+			output-high;
+		};
+	};
+};
